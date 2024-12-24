@@ -1,61 +1,291 @@
+/* Genel Tema */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #282c34; /* Daha yumuşak bir karanlık ton */
+  color: #ffffff; /* Beyaz metin */
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  background: #3a3f47; /* Hafif açık bir karanlık ton */
+  padding: 20px; /* İçerideki elemanlara boşluk bırak */
+  border-radius: 8px; /* Yuvarlatılmış köşeler */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 400px; /* Konteyner genişliği */
+  margin: 20px auto; /* Ortalamak için */
+}
+
+h1 {
+  color: #ffffff;
+}
+
+p {
+  font-size: 14px;
+  color: #c0c0c0; /* Metin için daha açık gri */
+}
+
+form {
+  margin-top: 20px;
+}
+
+input {
+  width: 90%; /* Input alanını konteynerin genişliğine göre ayarla */
+  padding: 10px; /* Input'un içindeki metin için boşluk */
+  margin-bottom: 10px; /* Input ile buton arasında boşluk */
+  border: 1px solid #555; /* Hafif açık sınır */
+  border-radius: 4px; /* Yuvarlatılmış köşeler */
+  background-color: #40454f; /* Input arka planı */
+  color: #ffffff; /* Input metin rengi */
+}
+
+button {
+  padding: 10px 20px; /* Düğme iç boşlukları */
+  background-color: #61dafb; /* Açık mavi düğme */
+  color: #282c34; /* Metin rengi */
+  border: none; /* Kenarlık kaldırıldı */
+  border-radius: 4px; /* Yuvarlatılmış köşeler */
+  cursor: pointer; /* İşaretçi */
+  transition: background-color 0.3s ease; /* Hover animasyonu */
+}
+
+button:hover {
+  background-color: #21a1f1; /* Hover durumunda koyu mavi */
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #c0c0c0;
+}
+
+/* Harita */
+#map {
+  margin: 20px auto;
+  width: 50%;
+  height: 500px;
+  border: 1px solid #444; /* Harita çerçevesi */
+  border-radius: 8px;
+}
+
+/* Dil Seçici */
+#language-selector {
+  position: fixed;
+  top: 20px; /* Üst köşeye hizala */
+  right: 10px; /* Sağ tarafa hizala */
+  display: flex;
+  gap: 10px;
+}
+
+.lang-flag {
+  width: 40px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.lang-flag:hover {
+  transform: scale(1.1);
+  border-color: #61dafb;
+}
+
+
+/* Sistem Durumu */
+/* Status Panel */
+#status-panel {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.status-btn {
+  background-color: #3a3f47;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.status-btn:hover {
+  background-color: #61dafb;
+  color: #282c34;
+}
+
+#status-details {
+  background-color: #3a3f47;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  width: 300px;
+  position: absolute;
+  bottom: 50px;
+  right: 0;
+  z-index: 1000; /* Üstte görünmesini sağla */
+}
+
+.status-hidden {
+  display: none;
+}
+
+.status-visible {
+  display: block;
+}
+
+.status-item {
+  margin-bottom: 15px;
+}
+
+.status-item .uptime-bar {
+  background-color: #40454f;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.status-item .uptime-progress {
+  background-color: #61dafb;
+  height: 100%;
+}
+
+.status {
+  color: #61dafb;
+  font-weight: bold;
+}
+
+/* Operational Durumu */
+.status-operational {
+  color: green;
+  animation: operational-glow 1.5s infinite;
+}
+
+@keyframes operational-glow {
+  0% {
+    text-shadow: 0 0 5px green;
   }
-  
-  .container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 400px;
+  50% {
+    text-shadow: 0 0 20px green;
   }
-  
-  h1 {
-    margin-bottom: 10px;
-    color: #333;
+  100% {
+    text-shadow: 0 0 5px green;
   }
-  
-  p {
-    font-size: 14px;
-    color: #666;
+}
+
+/* Operational Buton */
+.status-btn-operational {
+  animation: operational-glow-btn 1.5s infinite;
+}
+
+@keyframes operational-glow-btn {
+  0% {
+    box-shadow: 0 0 5px green;
   }
-  
-  form {
-    margin-top: 15px;
+  50% {
+    box-shadow: 0 0 20px green;
   }
-  
-  input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  100% {
+    box-shadow: 0 0 5px green;
   }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+}
+
+/* Error Buton */
+.status-btn-error {
+  animation: error-glow-btn 1.5s infinite;
+}
+
+@keyframes error-glow-btn {
+  0% {
+    box-shadow: 0 0 5px red;
   }
-  
-  button:hover {
-    background-color: #0056b3;
+  50% {
+    box-shadow: 0 0 20px red;
   }
-  
-  #result {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #555;
+  100% {
+    box-shadow: 0 0 5px red;
   }
-  
+}
+
+/* Error Durumu */
+.status-error {
+  color: red;
+  animation: error-shake 0.5s infinite;
+}
+
+@keyframes error-shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+/* Sosyal Medya Sekmeleri */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  background-color: #3a3f47; /* Kapalı butonlar için koyu renk */
+  border: none;
+  border-radius: 4px;
+  color: #c0c0c0;
+  cursor: not-allowed; /* Tıklanamaz işaretçi */
+  position: relative; /* Tooltip için */
+}
+
+.tab:hover {
+  background-color: #40454f; /* Hover efekti */
+}
+
+.tab.active {
+  background-color: #61dafb;
+  color: #282c34;
+  cursor: pointer;
+}
+
+.tab:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Tooltip Tasarımı */
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+}

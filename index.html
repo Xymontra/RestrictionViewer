@@ -5,17 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Restriction Viewer</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
+  <div id="status-panel">
+    <button id="status-toggle" class="status-btn">System Status</button>
+    <div id="status-details" class="status-hidden">
+      <h3>System Status</h3>
+      <div class="status-item">
+        <p><strong>Backend (API):</strong> <span id="api-status" class="status">Checking...</span></p>
+      </div>
+      <div class="status-item">
+        <p><strong>Frontend (UI):</strong> <span id="ui-status" class="status">Checking...</span></p>
+      </div>
+      <div class="status-item">
+        <p><strong>YouTube API:</strong> <span id="youtube-status" class="status">Checking...</span></p>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+  <div id="language-selector">
+    <img
+      src="https://flagcdn.com/w40/us.png"
+      alt="English"
+      class="lang-flag"
+      data-lang="en"
+      title="English"
+    />
+    <img
+      src="https://flagcdn.com/w40/tr.png"
+      alt="Türkçe"
+      class="lang-flag"
+      data-lang="tr"
+      title="Türkçe"
+    />
+  </div>
+  
+
+  <div class="tabs">
+    <button class="tab active">YouTube</button>
+    <button class="tab disabled" title="In Development">Instagram</button>
+    <button class="tab disabled" title="In Development">TikTok</button>
+    <button class="tab disabled" title="In Development">Twitter</button>
+  </div>
+
   <div class="container">
     <h1>Restriction Viewer</h1>
-    <p>Check YouTube video restrictions by entering a video URL below:</p>
+    <p></p>
     <form id="video-form">
       <input type="url" id="video-url" placeholder="Enter YouTube video URL" required>
       <button type="submit">Check Restrictions</button>
     </form>
     <div id="result"></div>
-  </div>
+  </div>  
+
+  <div id="map" style="height: 500px;"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
