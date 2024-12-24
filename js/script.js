@@ -93,6 +93,7 @@ fetch(window.location.href)
     if (response.ok) {
       uiStatus.textContent = "Operational";
       uiStatus.style.color = "green";
+      uiStatus.classList.add("status-operational");
     } else {
       uiStatus.textContent = "Error";
       uiStatus.style.color = "red";
@@ -112,6 +113,7 @@ fetch("https://restrictionchecker.onrender.com/check_youtube")
     if (data.status === "Operational") {
       youtubeStatus.textContent = "Operational";
       youtubeStatus.style.color = "green";
+      youtubeStatus.classList.add("status-operational");
     } else {
       youtubeStatus.textContent = "Error";
       youtubeStatus.style.color = "red";
