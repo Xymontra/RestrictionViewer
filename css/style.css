@@ -182,34 +182,40 @@ button:hover {
 /* Operational Buton */
 .status-btn-operational {
   animation: operational-glow-btn 1.5s infinite;
+  background-color: #28a745; /* Yeşil */
+  color: white;
+  border: none;
 }
 
 @keyframes operational-glow-btn {
   0% {
-    box-shadow: 0 0 5px green;
+    box-shadow: 0 0 5px #28a745;
   }
   50% {
-    box-shadow: 0 0 20px green;
+    box-shadow: 0 0 20px #28a745;
   }
   100% {
-    box-shadow: 0 0 5px green;
+    box-shadow: 0 0 5px #28a745;
   }
 }
 
 /* Error Buton */
 .status-btn-error {
   animation: error-glow-btn 1.5s infinite;
+  background-color: #dc3545; /* Kırmızı */
+  color: white;
+  border: none;
 }
 
 @keyframes error-glow-btn {
   0% {
-    box-shadow: 0 0 5px red;
+    box-shadow: 0 0 5px #dc3545;
   }
   50% {
-    box-shadow: 0 0 20px red;
+    box-shadow: 0 0 20px #dc3545;
   }
   100% {
-    box-shadow: 0 0 5px red;
+    box-shadow: 0 0 5px #dc3545;
   }
 }
 
@@ -237,6 +243,43 @@ button:hover {
   }
 }
 
+.status-btn-green {
+  animation: green-glow 1.5s infinite;
+  background-color: #28a745; /* Yeşil */
+  color: white;
+  border: none;
+}
+
+@keyframes green-glow {
+  0% {
+    box-shadow: 0 0 5px #28a745;
+  }
+  50% {
+    box-shadow: 0 0 20px #28a745;
+  }
+  100% {
+    box-shadow: 0 0 5px #28a745;
+  }
+}
+
+.status-btn-red {
+  animation: red-glow 1.5s infinite;
+  background-color: #dc3545; /* Kırmızı */
+  color: white;
+  border: none;
+}
+
+@keyframes red-glow {
+  0% {
+    box-shadow: 0 0 5px #dc3545;
+  }
+  50% {
+    box-shadow: 0 0 20px #dc3545;
+  }
+  100% {
+    box-shadow: 0 0 5px #dc3545;
+  }
+}
 
 /* Sosyal Medya Sekmeleri */
 .tabs {

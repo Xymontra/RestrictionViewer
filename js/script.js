@@ -7,28 +7,46 @@ const statusToggle = document.getElementById("status-toggle");
 // Genel Durum Kontrolü
 let isAllOperational = true; // Varsayılan olarak tüm sistemler çalışıyor
 
-Promise.all([
-  fetch("https://restrictionchecker.onrender.com/healthz"),
-  fetch(window.location.href),
-  fetch("https://www.googleapis.com/youtube/v3/videos?part=id&id=dummy_id&key=YOUR_API_KEY"),
-])
-  .then((responses) => {
-    responses.forEach((response, index) => {
-      if (!response.ok) {
-        isAllOperational = false;
-      }
-    });
+function updateSystemStatus() {
+  const statusToggle = document.getElementById("status-toggle");
 
-    if (isAllOperational) {
-      statusToggle.classList.add("status-btn-operational");
-    } else {
+  // Backend ve YouTube API durumlarını kontrol et
+  Promise.all([
+    fetch("https://restrictionchecker.onrender.com/healthz"),
+    fetch("https://restrictionchecker.onrender.com/check_youtube"),
+  ])
+    .then((responses) => Promise.all(responses.map((res) => res.json())))
+    .then((data) => {
+      const backendStatus = data[0].status === "ok";
+      const youtubeStatus = data[1].status === "Operational";
+
+      if (backendStatus && youtubeStatus) {
+        // Tüm sistemler çalışıyorsa yeşil animasyon
+        statusToggle.classList.remove("status-btn-error");
+        statusToggle.classList.add("status-btn-operational");
+        statusToggle.textContent = "All Systems Operational";
+      } else {
+        // Bir veya daha fazla sistemde sorun varsa kırmızı animasyon
+        statusToggle.classList.remove("status-btn-operational");
+        statusToggle.classList.add("status-btn-error");
+        statusToggle.textContent = "System Error Detected";
+      }
+    })
+    .catch((error) => {
+      // Hata durumunda kırmızı animasyon
+      console.error("System status check failed:", error);
+      statusToggle.classList.remove("status-btn-operational");
       statusToggle.classList.add("status-btn-error");
-    }
-  })
-  .catch(() => {
-    isAllOperational = false;
-    statusToggle.classList.add("status-btn-error");
-  });
+      statusToggle.textContent = "System Error Detected";
+    });
+}
+
+// Sayfa yüklendiğinde sistem durumunu kontrol et
+document.addEventListener("DOMContentLoaded", updateSystemStatus);
+
+// Belirli bir aralıkla (örneğin her 10 saniyede bir) sistem durumunu kontrol et
+setInterval(updateSystemStatus, 600000);
+
 
 const statusDetails = document.getElementById("status-details");
 
