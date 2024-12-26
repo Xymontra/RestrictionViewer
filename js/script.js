@@ -533,6 +533,68 @@ document.getElementById("video-form").addEventListener("submit", function (e) {
       resultDiv.innerHTML = `An error occurred: ${error}`;
     });
 
+    function fetchUsageData() {
+      fetch("https://restrictionchecker.onrender.com/get_usage")
+        .then((response) => response.json())
+        .then((data) => {
+          const usageTableBody = document.querySelector("#usage-table tbody");
+          usageTableBody.innerHTML = ""; // Eski verileri temizle
+    
+          // Günlük ve Aylık kullanımı hesaplama
+          const usageCounts = {
+            daily: 0,
+            monthly: 0,
+          };
+    
+          const today = new Date();
+          const currentMonth = today.getMonth();
+          const currentDay = today.getDate();
+    
+          data.forEach((log) => {
+            const logDate = new Date(log.timestamp);
+            const isToday = logDate.getDate() === currentDay && logDate.getMonth() === currentMonth;
+            const isThisMonth = logDate.getMonth() === currentMonth;
+    
+            if (isToday) usageCounts.daily++;
+            if (isThisMonth) usageCounts.monthly++;
+    
+            // Tabloya veri ekle
+            const row = document.createElement("tr");
+            const dateCell = document.createElement("td");
+            const usageCell = document.createElement("td");
+    
+            dateCell.textContent = logDate.toLocaleDateString();
+            usageCell.textContent = "1";
+    
+            row.appendChild(dateCell);
+            row.appendChild(usageCell);
+            usageTableBody.appendChild(row);
+          });
+    
+          // Günlük ve Aylık toplamı göster
+          const summaryRow = document.createElement("tr");
+          summaryRow.innerHTML = `
+            <td><strong>Daily Usage</strong></td>
+            <td>${usageCounts.daily}</td>
+          `;
+          usageTableBody.appendChild(summaryRow);
+    
+          const monthlyRow = document.createElement("tr");
+          monthlyRow.innerHTML = `
+            <td><strong>Monthly Usage</strong></td>
+            <td>${usageCounts.monthly}</td>
+          `;
+          usageTableBody.appendChild(monthlyRow);
+        })
+        .catch((error) => {
+          console.error("Error fetching usage data:", error);
+        });
+    }
+    
+    // Sayfa yüklendiğinde kullanım verilerini al
+    document.addEventListener("DOMContentLoaded", fetchUsageData);
+    
+
   setTimeout(() => {
     button.disabled = false;
   }, 5000);
